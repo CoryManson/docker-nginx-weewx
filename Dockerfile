@@ -11,6 +11,8 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 ARG WEEWX_VERSION=4.1.1
 
+COPY install-input.txt requirements.txt /build/
+
 # install packages
 RUN \
 	apk add --no-cache --upgrade \
