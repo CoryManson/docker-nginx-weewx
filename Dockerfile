@@ -9,9 +9,11 @@ LABEL maintainer="aptalca"
 # environment settings
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
+ARG WEEWX_VERSION=4.1.1
+
 # install packages
 RUN \
- apk add --no-cache --upgrade \
+	apk add --no-cache --upgrade \
 	curl \
 	memcached \
 	nginx \
@@ -71,12 +73,46 @@ RUN \
 	php7-xml \
 	php7-xmlreader \
 	php7-xmlrpc \
-	php7-zip && \
- echo "**** configure nginx ****" && \
- rm -f /etc/nginx/conf.d/default.conf && \
- sed -i \
+	php7-zip \
+	freetype \
+	libjpeg \
+	libstdc++ \
+	openssh \
+	openssl \
+	python3 \
+	py3-cheetah \
+	py3-configobj \
+	py3-mysqlclient \
+	py3-pillow \
+	py3-six \
+	rsync \
+	rsyslog && \
+	apk add --no-cache --virtual .fetch-deps \
+	file \
+	freetype-dev \
+	g++ \
+	gawk \
+	gcc \
+	git \
+	jpeg-dev \
+	libpng-dev \
+	make \
+	musl-dev \
+	py3-pip \
+	py3-wheel \
+	python3-dev \
+	zlib-dev && \
+	echo "**** configure nginx ****" && \
+	rm -f /etc/nginx/conf.d/default.conf && \
+	sed -i \
 	's|include /config/nginx/site-confs/\*;|include /config/nginx/site-confs/\*;\n\tlua_load_resty_core off;|g' \
-	/defaults/nginx.conf
+	/defaults/nginx.conf \
+	echo "**** install weewx ****" && \
+	mkdir build && cd build && \
+	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
+	pip install -r /root/requirements.txt && \
+	ln -s python3 /usr/bin/python && \
+	tar xf weewx.tar.gz --strip-components=1
 
 # add local files
 COPY root/ /
