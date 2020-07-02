@@ -110,7 +110,7 @@ RUN \
 	's|include /config/nginx/site-confs/\*;|include /config/nginx/site-confs/\*;\n\tlua_load_resty_core off;|g' \
 	/defaults/nginx.conf && \
 	echo "**** install weewx ****" && \
-	mkdir build && cd build && \
+	cd build && \
 	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
