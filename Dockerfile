@@ -109,10 +109,7 @@ RUN \
 	/defaults/nginx.conf && \
 	echo "**** install weewx ****" && \
 	mkdir build && cd build && \
-	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
-	pip install -r /root/requirements.txt && \
-	ln -s python3 /usr/bin/python && \
-	tar xf weewx.tar.gz --strip-components=1
+	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz
 
 # add local files
 COPY root/ /
