@@ -123,6 +123,7 @@ RUN \
 	echo "**** install weewx ****" && \
 	cd build && \
 	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
+	sed 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
