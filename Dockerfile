@@ -123,13 +123,21 @@ RUN \
 	echo "**** install weewx ****" && \
 	cd build && \
 	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
-	sed 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
+	sed 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	./setup.py build && ./setup.py install < /build/install-input.txt && \
+	echo "**** install observer ****" && \
+	wget -O weewx-observer.zip https://github.com/matthewwall/weewx-observer/archive/master.zip -P /build/observer && \
+	/config/weewx/bin/wee_extension --install /build/observer/weewx-observer.zip && \
+	/config/weewx/bin/wee_config --reconfigure driver=user.observer --no-prompt && \
 	echo "**** install weather-34 ****" && \
 	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
+	sed --in-place -e 's/\/home\/weewx/\/config\/weewx/g' \ 
+		-e 's/\/var\/www/\html\/weewx\/weather34/config\/www/g' \
+		/build/weather34/setup_py.conf && \
+	sed '/s/www-data/abc/g' /build/weather34/w34_installer.py && \
 	find /home/weewx/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
