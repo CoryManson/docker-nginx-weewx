@@ -110,9 +110,10 @@ RUN \
 	echo "**** install weewx ****" && \
 	mkdir build && cd build && \
 	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
-	pip install -r /root/requirements.txt && \
+	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
-	tar xf weewx.tar.gz --strip-components=1
+	tar xf weewx.tar.gz --strip-components=1 && \
+	./setup.py build && ./setup.py install < /root/install-input.txt
 
 # add local files
 COPY root/ /
