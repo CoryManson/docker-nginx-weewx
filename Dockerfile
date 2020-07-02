@@ -128,11 +128,11 @@ RUN \
 	tar xf weewx.tar.gz --strip-components=1 && \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	./setup.py build && ./setup.py install < /build/weewx-input.txt && \
-	echo "**** install observer ****" && \
-	mkdir /build/observer && \
-	wget https://github.com/matthewwall/weewx-observer/archive/master.zip -O /build/observer/weewx-observer.zip && \
-	/config/weewx/bin/wee_extension --install /build/observer/weewx-observer.zip && \
-	/config/weewx/bin/wee_config --reconfigure driver=user.observer --no-prompt && \
+	echo "**** install interceptor ****" && \
+	mkdir /build/interceptor && \
+	wget https://github.com/matthewwall/weewx-interceptor/archive/master.zip -O /build/interceptor/weewx-interceptor.zip && \
+	/config/weewx/bin/wee_extension --install /build/interceptor/weewx-interceptor.zip && \
+	/config/weewx/bin/wee_config --reconfigure --driver=user.interceptor --no-prompt && \
 	echo "**** install weather34 ****" && \
 	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
 	sed --in-place -e 's/\/home\/weewx/\/config\/weewx/g' \ 
