@@ -115,7 +115,7 @@ RUN \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
-	./setup.py build && ./setup.py install < /root/install-input.txt
+	./setup.py build && ./setup.py install < /build/install-input.txt
 
 # add local files
 COPY root/ /
