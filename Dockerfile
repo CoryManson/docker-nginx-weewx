@@ -76,6 +76,17 @@ RUN \
 	php7-xmlreader \
 	php7-xmlrpc \
 	php7-zip \
+	php7-cli \
+	php7-fpm \
+	php7-json \
+	php7-sqlite3 \
+	php7-zip \ 
+	php7-gd \
+	php7-mbstring \
+	php7-curl \
+	php7-xml \
+	php7-pear \
+	php7-bcmath \
 	freetype \
 	libjpeg \
 	libstdc++ \
@@ -115,7 +126,9 @@ RUN \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
-	./setup.py build && ./setup.py install < /build/install-input.txt
+	./setup.py build && ./setup.py install < /build/install-input.txt && \
+	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
+	find /home/$WX_USER/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
 COPY root/ /
