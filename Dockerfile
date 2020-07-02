@@ -106,7 +106,7 @@ RUN \
 	rm -f /etc/nginx/conf.d/default.conf && \
 	sed -i \
 	's|include /config/nginx/site-confs/\*;|include /config/nginx/site-confs/\*;\n\tlua_load_resty_core off;|g' \
-	/defaults/nginx.conf \
+	/defaults/nginx.conf && \
 	echo "**** install weewx ****" && \
 	mkdir build && cd build && \
 	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
