@@ -129,7 +129,8 @@ RUN \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	./setup.py build && ./setup.py install < /build/weewx-input.txt && \
 	echo "**** install observer ****" && \
-	wget -O weewx-observer.zip https://github.com/matthewwall/weewx-observer/archive/master.zip -P /build/observer && \
+	mkdir /build/observer && \
+	wget https://github.com/matthewwall/weewx-observer/archive/master.zip -O /build/observer/weewx-observer.zip && \
 	/config/weewx/bin/wee_extension --install /build/observer/weewx-observer.zip && \
 	/config/weewx/bin/wee_config --reconfigure driver=user.observer --no-prompt && \
 	echo "**** install weather34 ****" && \
