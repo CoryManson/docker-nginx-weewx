@@ -138,7 +138,6 @@ RUN \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
 	sed --in-place 's/\/var\/www\/html\/weewx\/weather34/config\/www/g' /build/weather34/setup_py.conf && \
 	sed --in-place 's/www-data/abc/g' /build/weather34/w34_installer.py && \
-	/build/weather34/w34_installer.py < /build/weather34-input.txt && \
 	find /home/weewx/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
