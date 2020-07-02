@@ -134,6 +134,7 @@ RUN \
 	/config/weewx/bin/wee_extension --install /build/interceptor/weewx-interceptor.zip && \
 	/config/weewx/bin/wee_config --reconfigure --driver=user.interceptor --no-prompt && \
 	echo "**** install weather34 ****" && \
+	mkdir /config/weewx/public_html && \
 	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
 	sed --in-place 's/\/var\/www\/html\/weewx\/weather34/\/config\/weewx\/public_html/g' /build/weather34/setup_py.conf && \
