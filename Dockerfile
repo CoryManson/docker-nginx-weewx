@@ -135,10 +135,9 @@ RUN \
 	/config/weewx/bin/wee_config --reconfigure --driver=user.interceptor --no-prompt && \
 	echo "**** install weather34 ****" && \
 	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
-	sed --in-place -e 's/\/home\/weewx/\/config\/weewx/g' \ 
-		-e 's/\/var\/www/\html\/weewx\/weather34/config\/www/g' \
-		/build/weather34/setup_py.conf && \
-	sed '/s/www-data/abc/g' /build/weather34/w34_installer.py < /build/weather34-input.txt && \
+	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
+	sed --in-place 's/\/var\/www/\html\/weewx\/weather34/config\/www/g' /build/weather34/setup_py.conf && \
+	sed --in-place '/s/www-data/abc/g' /build/weather34/w34_installer.py < /build/weather34-input.txt && \
 	find /home/weewx/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
