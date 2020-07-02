@@ -127,8 +127,9 @@ RUN \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
 	./setup.py build && ./setup.py install < /build/install-input.txt && \
+	echo "**** install weather-34 ****" && \
 	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
-	find /home/$WX_USER/bin -name '*.pyc' -exec rm '{}' +;
+	find /home/weewx/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
 COPY root/ /
