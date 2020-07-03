@@ -13,8 +13,9 @@ ENV LANG="hu_HU.UTF-8"
 
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm;\
 	yum -y update;\
-	yum -y install python3 python3-pillow python3-configobj python-setuptools pyephem wget git php-cli php-fpm php-json php-sqlite3 php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath;\
+	yum -y install rh-python36 python3-pillow python3-configobj python-setuptools pyephem wget git php-cli php-fpm php-json php-sqlite3 php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath;\
 	yum -y groupinstall "Fonts";\
+	yum -y groupinstall 'Development Tools';\
 	easy_install pyserial pyusb;\ 
 	rpm --import http://weewx.com/keys.html;\
 	wget -O /tmp/weewx-${WEEWX_VERSION}.tar.gz http://weewx.com/downloads/weewx-${WEEWX_VERSION}.tar.gz;\
