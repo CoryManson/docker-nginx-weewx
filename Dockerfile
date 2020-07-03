@@ -126,7 +126,7 @@ RUN \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf /build/weewx.tar.gz -C /build --strip-components=1 && \
-	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
+	# sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
 	# /build/setup.py build && /build/setup.py install < /build/weewx-input.txt && \
 	echo "**** install interceptor ****" && \
 	mkdir /build/interceptor && \
