@@ -121,6 +121,7 @@ RUN \
 	's|include /config/nginx/site-confs/\*;|include /config/nginx/site-confs/\*;\n\tlua_load_resty_core off;|g' \
 	/defaults/nginx.conf && \
 	echo "**** install weewx ****" && \
+	mkdir /config/weewx && \
 	wget http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz -O /build/weewx.tar.gz && \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
@@ -138,8 +139,8 @@ RUN \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
 	sed --in-place 's/\/var\/www\/html\/weewx\/weather34/\/config\/weewx\/public_html\/weather34/g' /build/weather34/setup_py.conf && \
 	sed --in-place 's/response = 0/response = 3/g' /build/weather34/w34_installer.py && \
-	sed --in-place 's/www-data/abc/g' /build/weather34/w34_installer.py && \
-	find /config/weewx/bin -name '*.pyc' -exec rm '{}' +;
+	sed --in-place 's/www-data/abc/g' /build/weather34/w34_installer.py
+	# find /config/weewx/bin -name '*.pyc' -exec rm '{}' +;
 
 # add local files
 COPY root/ /
