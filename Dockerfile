@@ -136,8 +136,8 @@ RUN \
 	echo "**** install weather34 ****" && \
 	mkdir /config/weewx/public_html && \
 	git clone https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
-	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
-	sed --in-place 's/\/var\/www\/html\/weewx\/weather34/\/config\/weewx\/public_html\/weather34/g' /build/weather34/setup_py.conf && \
+	# sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
+	# sed --in-place 's/\/var\/www\/html\/weewx\/weather34/\/config\/weewx\/public_html\/weather34/g' /build/weather34/setup_py.conf && \
 	sed --in-place 's/response = 0/response = 3/g' /build/weather34/w34_installer.py && \
 	sed --in-place 's/www-data/abc/g' /build/weather34/w34_installer.py
 	# find /config/weewx/bin -name '*.pyc' -exec rm '{}' +;
