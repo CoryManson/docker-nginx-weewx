@@ -121,21 +121,20 @@ RUN \
 	's|include /config/nginx/site-confs/\*;|include /config/nginx/site-confs/\*;\n\tlua_load_resty_core off;|g' \
 	/defaults/nginx.conf && \
 	echo "**** install weewx ****" && \
-	cd build && \
-	curl -sLo weewx.tar.gz http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz && \
+	wget http://www.weewx.com/downloads/released_versions/weewx-$WEEWX_VERSION.tar.gz -O /build/weewx.tar.gz && \
 	pip install -r /build/requirements.txt && \
 	ln -s python3 /usr/bin/python && \
 	tar xf weewx.tar.gz --strip-components=1 && \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/setup.cfg && \
-	./setup.py build && ./setup.py install < /build/weewx-input.txt && \
+	# /build/setup.py build && /build/setup.py install < /build/weewx-input.txt && \
 	echo "**** install interceptor ****" && \
 	mkdir /build/interceptor && \
 	wget https://github.com/matthewwall/weewx-interceptor/archive/master.zip -O /build/interceptor/weewx-interceptor.zip && \
-	/config/weewx/bin/wee_extension --install /build/interceptor/weewx-interceptor.zip && \
-	/config/weewx/bin/wee_config --reconfigure --driver=user.interceptor --no-prompt && \
+	# /config/weewx/bin/wee_extension --install /build/interceptor/weewx-interceptor.zip && \
+	# /config/weewx/bin/wee_config --reconfigure --driver=user.interceptor --no-prompt && \
 	echo "**** install weather34 ****" && \
 	mkdir /config/weewx/public_html && \
-	git clone -b master --depth 1 https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
+	git clone https://github.com/steepleian/weewx-Weather34.git /build/weather34 && \
 	sed --in-place 's/\/home\/weewx/\/config\/weewx/g' /build/weather34/setup_py.conf && \ 
 	sed --in-place 's/\/var\/www\/html\/weewx\/weather34/\/config\/weewx\/public_html\/weather34/g' /build/weather34/setup_py.conf && \
 	sed --in-place 's/response = 0/response = 3/g' /build/weather34/w34_installer.py && \
